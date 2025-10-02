@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class SignUp extends JFrame {
 
-    JTextField applicantNameField, applicantFatherName, applicantEmailField;
+    JTextField applicantNameField, applicantFatherName, applicantEmailField, applicantAddress;
 
     JDateChooser dateChooser;   // used to add calendar
 
@@ -118,6 +118,18 @@ public class SignUp extends JFrame {
         applicantEmailField.setFont(new Font("Raleway", Font.BOLD, 16));
         applicantEmailField.setForeground(Color.BLACK);
         add(applicantEmailField);
+
+        JLabel addressLabel = new JLabel("Address :");
+        addressLabel.setFont(new Font("Raleway", Font.BOLD, 18));
+        addressLabel.setForeground(Color.BLACK);
+        addressLabel.setBounds(100, 450, 200, 30);
+        add(addressLabel);
+
+        applicantAddress = new JTextField();
+        applicantAddress.setFont(new Font("Raleway", Font.BOLD, 16));
+        applicantAddress.setForeground(Color.BLACK);
+        applicantAddress.setBounds(300, 450, 350, 30);
+        add(applicantAddress);
 
 
         // Setting up frame for application form
