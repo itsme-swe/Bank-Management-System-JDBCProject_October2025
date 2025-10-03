@@ -4,21 +4,26 @@ import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
 import java.util.Random;
 
-public class SignUp extends JFrame {
+public class SignUp1 extends JFrame implements ActionListener {
 
-    JTextField applicantNameField, applicantFatherName, applicantEmailField, applicantAddress;
+    JTextField applicantNameField, applicantFatherName, applicantEmailField, applicantAddress, applicantCity, applicantState;
 
     JDateChooser dateChooser;   // used to add calendar
 
     JRadioButton maleBtn, femaleBtn;
 
+    JButton nextBtn;
+
     Random randomNum = new Random();
 
     long ran4DigitNum = randomNum.nextInt(9000) + 1000;   // generating random 4-digit number between 1000 and 9999.
 
-    SignUp() {
+    SignUp1() {
 
         super("APPLICATION FORM");
 
@@ -131,6 +136,38 @@ public class SignUp extends JFrame {
         applicantAddress.setBounds(300, 450, 350, 30);
         add(applicantAddress);
 
+        JLabel cityLabel = new JLabel("City : ");
+        cityLabel.setBounds(100, 500, 200, 30);
+        cityLabel.setForeground(Color.BLACK);
+        cityLabel.setFont(new Font("Raleway", Font.BOLD, 18));
+        add(cityLabel);
+
+        applicantCity = new JTextField();
+        applicantCity.setBounds(300, 500, 350, 30);
+        applicantCity.setForeground(Color.BLACK);
+        applicantCity.setFont(new Font("Raleway", Font.BOLD, 18));
+        add(applicantCity);
+
+        JLabel stateLabel = new JLabel("State : ");
+        stateLabel.setBounds(100, 550, 200, 30);
+        stateLabel.setForeground(Color.BLACK);
+        stateLabel.setFont(new Font("Raleway", Font.BOLD, 18));
+        add(stateLabel);
+
+        applicantState = new JTextField();
+        applicantState.setBounds(300, 550, 350, 30);
+        applicantState.setForeground(Color.BLACK);
+        applicantState.setFont(new Font("Raleway", Font.BOLD, 18));
+        add(applicantState);
+
+        nextBtn = new JButton("Next");
+        nextBtn.setBounds(400, 710, 80, 30);
+        nextBtn.setForeground(Color.WHITE);
+        nextBtn.setBackground(Color.BLACK);
+        nextBtn.setFont(new Font("Raleway", Font.BOLD, 14));
+        nextBtn.addActionListener(this);
+        add(nextBtn);
+
 
         // Setting up frame for application form
         getContentPane().setBackground(new Color(100, 149, 237));   // setting up frame color
@@ -140,8 +177,70 @@ public class SignUp extends JFrame {
         setVisible(true);
     }
 
-    static void main() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
 
-        new SignUp();
+        String formNum = String.valueOf(ran4DigitNum);
+        String nameOfApplicant = applicantNameField.getText();
+        String fatherName = applicantFatherName.getText();
+        String dob = ((JTextField) dateChooser.getDateEditor().getUiComponent()).getText();
+        String gender = null;
+        if (maleBtn.isSelected()) {
+            gender = "Male";
+        } else if (femaleBtn.isSelected()) {
+            gender = "Female";
+        }
+
+        String email = applicantEmailField.getText();
+        String address = applicantAddress.getText();
+        String city = applicantCity.getText();
+        String state = applicantState.getText();
+
+        PreparedStatement ps;
+
+        try {
+
+            if (applicantNameField.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Fill all the fields");
+            } else {
+
+                DBConnection dbConnect = new DBConnection();
+
+
+                String insertQuery = "insert into signup(form_num, applicant_name, father_name, dob,  gender, email, address, city, state ) values(?,?,?,?,?,?,?,?,?)";
+
+                ps = dbConnect.preparedStatement(insertQuery);
+
+                ps.setString(1, formNum);
+                ps.setString(2, nameOfApplicant);
+                ps.setString(3, fatherName);
+                ps.setString(4, dob);
+                ps.setString(5, gender);
+                ps.setString(6, email);
+                ps.setString(7, address);
+                ps.setString(8, city);
+                ps.setString(9, state);
+
+                ps.executeUpdate();
+
+                new SignUp2(formNum);
+                setVisible(false);
+
+                System.out.println("Data Inserted Successfully");
+
+                ps.close();
+                dbConnect.close();
+
+            }
+
+        } catch (Exception E) {
+            System.out.println(E.getMessage());
+        }
+
+    }
+
+    public static void main() {
+
+        new SignUp1();
     }
 }
