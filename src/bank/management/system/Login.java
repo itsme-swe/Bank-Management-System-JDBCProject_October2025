@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class Login extends JFrame implements ActionListener {
 
@@ -118,6 +120,37 @@ public class Login extends JFrame implements ActionListener {
         try {
 
             if (e.getSource() == signInBtn) {
+
+                DBConnection dbConnect = new DBConnection();
+
+                String cardNum = textField1.getText();
+                String pin = new String(passwordField2.getPassword());
+
+                String retrievingInfo = "select * from login where card_number = ? and pin_number = ?";
+
+                PreparedStatement preStatement;
+
+                try {
+                    preStatement = dbConnect.preparedStatement(retrievingInfo);
+
+                    preStatement.setString(1, cardNum);
+                    preStatement.setString(2, pin);
+
+                    ResultSet resultSet = preStatement.executeQuery();
+                    if (resultSet.next()) {
+                        setVisible(false);
+                        new Transaction(pin);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Retry");
+                    }
+
+
+                    preStatement.close();
+                    dbConnect.close();
+                } catch (Exception E) {
+                    E.printStackTrace();
+                }
+
 
             } else if (e.getSource() == signUpBtn) {
 
