@@ -95,6 +95,8 @@ public class DepositMoney extends JFrame implements ActionListener {
                     if (rowInserted > 0) {
                         JOptionPane.showMessageDialog(null, "Rs. " + amount + " Deposited Successfully");
                         setVisible(false);
+
+                        new Transaction(pin);
                     }
 
                     preStatement.close();
@@ -102,6 +104,8 @@ public class DepositMoney extends JFrame implements ActionListener {
                 }
             } else if (e.getSource() == backBtn) {
                 setVisible(false);
+
+                new Transaction(pin);
             }
         } catch (Exception E) {
             E.printStackTrace();

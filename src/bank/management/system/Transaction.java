@@ -92,6 +92,8 @@ public class Transaction extends JFrame implements ActionListener {
         if (e.getSource() == btn1) {
             new DepositMoney(pin);
             setVisible(false);
+        } else if (e.getSource() == btn7) {
+            System.exit(0);
         }
     }
 

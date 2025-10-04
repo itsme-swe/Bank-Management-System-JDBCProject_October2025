@@ -141,7 +141,7 @@ public class Login extends JFrame implements ActionListener {
                         setVisible(false);
                         new Transaction(pin);
                     } else {
-                        JOptionPane.showMessageDialog(null, "Retry");
+                        JOptionPane.showMessageDialog(null, "Incorrect Card Number or PIN");
                     }
 
 
