@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
 
 public class SignUp2 extends JFrame implements ActionListener {
 
@@ -150,7 +151,7 @@ public class SignUp2 extends JFrame implements ActionListener {
         existingAccLabel.setBounds(100, 500, 200, 30);
         add(existingAccLabel);
 
-        y = new JRadioButton("Yes");
+        y = new JRadioButton("YES");
         y.setForeground(Color.BLACK);
         y.setBackground(new Color(100, 149, 237));
         y.setFont(new Font("Raleway", Font.BOLD, 16));
@@ -177,7 +178,7 @@ public class SignUp2 extends JFrame implements ActionListener {
         JLabel formNumLabel = new JLabel(formNum);
         formNumLabel.setForeground(Color.BLACK);
         formNumLabel.setFont(new Font("Raleway", Font.BOLD, 14));
-        formNumLabel.setBounds(700, 10, 100, 30);
+        formNumLabel.setBounds(700, 10, 200, 30);
         add(formNumLabel);
 
         next = new JButton("Next");
@@ -199,12 +200,73 @@ public class SignUp2 extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        String religion = (String) religionList.getSelectedItem();
+        String category = (String) categoryList.getSelectedItem();
+        String income = (String) incomeList.getSelectedItem();
+        String education = (String) educationList.getSelectedItem();
+
+        String pan_num = panDetailsField.getText();
+        String aadhar_num = aadharField.getText();
+
+        String senCitizen = null;
+        if (yes.isSelected()) {
+            senCitizen = "Yes";
+        } else if (no.isSelected()) {
+            senCitizen = "No";
+        }
+
+        String accValidate = null;
+        if (y.isSelected()) {
+            accValidate = "YES";
+        } else if (n.isSelected()) {
+            accValidate = "NO";
+        }
+
+        PreparedStatement preStatement;
+
+        try {
+
+            if (panDetailsField.getText().equals("") || aadharField.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Fill all the fields");
+            } else {
+
+                DBConnection dbConnect = new DBConnection();
+
+                String insertQuery = "insert into signuptwo(form_num, religion, category, income, education, pan_number, aadhar_number, senior_citizen, existing_account) values (?,?,?,?,?,?,?,?,?)";
+
+                preStatement = dbConnect.preparedStatement(insertQuery);
+
+                preStatement.setString(1, formNum);
+                preStatement.setString(2, religion);
+                preStatement.setString(3, category);
+                preStatement.setString(4, income);
+                preStatement.setString(5, education);
+                preStatement.setString(6, pan_num);
+                preStatement.setString(7, aadhar_num);
+                preStatement.setString(8, senCitizen);
+                preStatement.setString(9, accValidate);
+
+                preStatement.executeUpdate();
+
+                new SignUp3(formNum);
+                setVisible(false);
+
+                System.out.println("Data inserted successfully");
+
+                preStatement.close();
+                dbConnect.close();
+            }
+
+
+        } catch (Exception err) {
+            System.out.println(err.getMessage());
+        }
+
 
     }
 
     static void main() {
 
-        new SignUp2("");
 
     }
 }
