@@ -97,6 +97,9 @@ public class Transactions_MainClass extends JFrame implements ActionListener {
         } else if (e.getSource() == btn2) {
             new Withdrawal_Class(pin);
             setVisible(false);
+        } else if (e.getSource() == btn6) {
+            new BalanceEnquiry_Class(pin);
+            setVisible(false);
         }
     }
 
