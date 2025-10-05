@@ -100,6 +100,9 @@ public class Transactions_MainClass extends JFrame implements ActionListener {
         } else if (e.getSource() == btn6) {
             new BalanceEnquiry_Class(pin);
             setVisible(false);
+        } else if (e.getSource() == btn3) {
+            new FastCash_Class(pin);
+            setVisible(false);
         }
     }
 
