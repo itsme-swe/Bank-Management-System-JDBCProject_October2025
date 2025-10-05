@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class Login extends JFrame implements ActionListener {
+public class Login_Class extends JFrame implements ActionListener {
 
     JLabel label1;
     JLabel label2;
@@ -21,7 +21,7 @@ public class Login extends JFrame implements ActionListener {
     JButton clearBtn;
 
 
-    Login() {
+    Login_Class() {
         super("Bank Management System");
 
         ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("icon/bank.png"));
@@ -140,7 +140,7 @@ public class Login extends JFrame implements ActionListener {
                     ResultSet resultSet = preStatement.executeQuery();
                     if (resultSet.next()) {
                         setVisible(false);
-                        new Transaction(pin);
+                        new Transactions_MainClass(pin);
                     } else {
                         JOptionPane.showMessageDialog(null, "Incorrect Card Number or PIN");
                     }
@@ -170,7 +170,7 @@ public class Login extends JFrame implements ActionListener {
 
     public static void main(String[] args) {
 
-        new Login();
+        new Login_Class();
     }
 
 }

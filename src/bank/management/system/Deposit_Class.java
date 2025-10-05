@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.util.Date;
 
-public class DepositMoney extends JFrame implements ActionListener {
+public class Deposit_Class extends JFrame implements ActionListener {
 
     String pin;
 
@@ -15,7 +15,7 @@ public class DepositMoney extends JFrame implements ActionListener {
 
     JButton depositBtn, backBtn;
 
-    DepositMoney(String pinNum) {
+    Deposit_Class(String pinNum) {
 
         this.pin = pinNum;
 
@@ -96,7 +96,7 @@ public class DepositMoney extends JFrame implements ActionListener {
                         JOptionPane.showMessageDialog(null, "Rs. " + amount + " Deposited Successfully");
                         setVisible(false);
 
-                        new Transaction(pin);
+                        new Transactions_MainClass(pin);
                     }
 
                     preStatement.close();
@@ -105,7 +105,7 @@ public class DepositMoney extends JFrame implements ActionListener {
             } else if (e.getSource() == backBtn) {
                 setVisible(false);
 
-                new Transaction(pin);
+                new Transactions_MainClass(pin);
             }
         } catch (Exception E) {
             E.printStackTrace();
@@ -114,6 +114,6 @@ public class DepositMoney extends JFrame implements ActionListener {
 
     static void main() {
 
-        new DepositMoney("");
+        new Deposit_Class("");
     }
 }

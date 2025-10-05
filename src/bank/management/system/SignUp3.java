@@ -293,7 +293,7 @@ public class SignUp3 extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Card Number: " + cardNumber + "\n Pin number: " + pinNumber);
                     setVisible(false);
 
-                    new DepositMoney(pinNumber);    // forwarding pin_number to DepositMoney class
+                    new Deposit_Class(pinNumber);    // forwarding pin_number to DepositMoney class
 
                     System.out.println("Data inserted successfully");
 

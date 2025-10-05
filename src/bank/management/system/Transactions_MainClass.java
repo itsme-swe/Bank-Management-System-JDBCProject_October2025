@@ -5,13 +5,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Transaction extends JFrame implements ActionListener {
+public class Transactions_MainClass extends JFrame implements ActionListener {
 
     String pin;
 
     JButton btn1, btn2, btn3, btn4, btn5, btn6, btn7;
 
-    Transaction(String pin) {
+    Transactions_MainClass(String pin) {
 
         this.pin = pin;
 
@@ -90,15 +90,18 @@ public class Transaction extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == btn1) {
-            new DepositMoney(pin);
+            new Deposit_Class(pin);
             setVisible(false);
         } else if (e.getSource() == btn7) {
             System.exit(0);
+        } else if (e.getSource() == btn2) {
+            new Withdrawal_Class(pin);
+            setVisible(false);
         }
     }
 
     static void main() {
 
-        new Transaction("");
+        new Transactions_MainClass("");
     }
 }
