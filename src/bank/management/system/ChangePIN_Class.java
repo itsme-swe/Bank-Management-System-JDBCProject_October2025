@@ -100,8 +100,8 @@ public class ChangePIN_Class extends JFrame implements ActionListener {
                 pass1.setText("");
                 pass2.setText("");
 
-                pass1.requestFocus();
-                
+                pass1.requestFocus();   // Bringing cursor back to pin1
+
                 return;
             }
 
