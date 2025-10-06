@@ -141,7 +141,7 @@ public class Withdrawal_Class extends JFrame implements ActionListener {
 
                         insertStatement.executeUpdate();
 
-                        JOptionPane.showMessageDialog(null, "Rs. " + amount + "Debited Successfully");
+                        JOptionPane.showMessageDialog(null, "Rs. " + amount + " Debited Successfully");
 
                         setVisible(false);
                         new Transactions_MainClass(pin);
