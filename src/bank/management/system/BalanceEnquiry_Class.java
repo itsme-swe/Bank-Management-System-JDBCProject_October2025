@@ -65,6 +65,10 @@ public class BalanceEnquiry_Class extends JFrame implements ActionListener {
                 }
             }
 
+            resultSet.close();
+            preStatement.close();
+            dbConnect.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         }

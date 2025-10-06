@@ -106,6 +106,9 @@ public class Transactions_MainClass extends JFrame implements ActionListener {
         } else if (e.getSource() == btn5) {
             new ChangePIN_Class(pin);
             setVisible(false);
+        } else if (e.getSource() == btn4) {
+            new MiniStatement_Class(pin);
+            setVisible(false);
         }
     }
 
