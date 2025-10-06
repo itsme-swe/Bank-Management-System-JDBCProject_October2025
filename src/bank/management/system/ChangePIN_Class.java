@@ -97,6 +97,11 @@ public class ChangePIN_Class extends JFrame implements ActionListener {
 
             if (!pin1.equals(pin2)) {
                 JOptionPane.showMessageDialog(null, "Entered PIN does not matched");
+                pass1.setText("");
+                pass2.setText("");
+
+                pass1.requestFocus();
+                
                 return;
             }
 

@@ -200,7 +200,7 @@ public class SignUp1 extends JFrame implements ActionListener {
 
         try {
 
-            if (applicantNameField.getText().equals("")) {
+            if (applicantNameField.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Fill all the fields");
             } else {
 
